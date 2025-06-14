@@ -1,50 +1,65 @@
 package com.springbootProjects.JournalApp.Controller;
 
 import com.springbootProjects.JournalApp.Entity.JournalEntity;
+import com.springbootProjects.JournalApp.Services.JournalEntityServices;
+import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("Journal")
 public class JournalApplicationController
 {
-    private Map<Long,JournalEntity> journalEntries= new HashMap<>();
+
+    @Autowired
+    private JournalEntityServices services;
 
     @GetMapping
-    public List<JournalEntity> getAll()
+    public List<JournalEntity> getEntries()
     {
-        return new ArrayList<>(journalEntries.values());
+        return services.getAll();
     }
 
     @PostMapping
     public boolean journalEntry(@RequestBody JournalEntity entry)
     {
-        journalEntries.put(entry.getId(), entry);
+
+        entry.setDate(LocalDateTime.now());
+        services.addEntry(entry);
         return true;
     }
 
 
     @GetMapping("id/{myId}")
-    public JournalEntity getEntryById(@PathVariable Long myId)
+    public JournalEntity getEntryById(@PathVariable ObjectId myId)
     {
-        return journalEntries.get(myId);
+        // Here we are returning option type of data which means there might be data inside or
+        // may not so we are using the else null
+        return services.getById(myId).orElse(null);
     }
 
     @DeleteMapping("id/{id}")
-    public JournalEntity delEntryById(@PathVariable Long id)
+    public boolean delEntryById(@PathVariable ObjectId id)
     {
-        return journalEntries.remove(id);
+        services.deleteById(id);
+        return true;
 
     }
 
     @PutMapping("id/{id}")
-    public JournalEntity updateById(@PathVariable Long id, @RequestBody JournalEntity Entry)
+    public JournalEntity updateById(@PathVariable ObjectId id, @RequestBody JournalEntity newEntry)
     {
-        return journalEntries.put(id,Entry);
+        JournalEntity oldEntry=services.getById(id).orElse(null);
+        if(oldEntry!=null)
+        {
+            oldEntry.setTitle(newEntry.getTitle()!=null&& !newEntry.getTitle().equals("")? newEntry.getTitle() : oldEntry.getTitle());
+            oldEntry.setContent(newEntry.getContent()!=null&& !newEntry.getContent().equals("")? newEntry.getContent() : oldEntry.getContent());
+        }
+        services.addEntry(oldEntry);
+        return oldEntry;
     }
 
 
