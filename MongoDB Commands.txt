@@ -1,0 +1,97 @@
+1. Basic Equality
+-------------------
+
+Match documents where field equals a value
+→ field = value
+
+2. Comparison Operators
+-----------------------
+
+$eq : Equal
+
+$ne : Not Equal
+
+$gt : Greater Than
+
+$gte: Greater Than or Equal
+
+$lt : Less Than
+
+$lte: Less Than or Equal
+
+3. Logical Operators
+--------------------
+
+$and : All conditions must be true
+
+$or : At least one condition is true
+
+$not : Negates a condition
+
+$nor : None of the conditions are true
+
+4. Array Operators
+---------------------
+
+$in : Matches any value in the array
+
+$nin : Matches none of the values in the array
+
+$all : Matches all values specified in the array
+
+5. Field Existence
+---------------------
+
+$exists: true → Field must be present
+
+$exists: false → Field must be absent
+
+6. Type Check
+---------------------
+
+$type → Check if field is of a certain type (e.g. string, int, bool, array)
+
+7. Regular Expression (Pattern Match)
+---------------------------------------
+
+Use regex to match string patterns (e.g. starts with, contains, case-insensitive)
+
+example:
+
+Match values that start with a specific word or letters
+Example: find documents where name starts with "Krishna"
+→ db.collection.find({ name: /^Krishna/ })
+
+Match values that end with a specific word or letters
+Example: find documents where name ends with "an"
+→ db.collection.find({ name: /an$/ })
+
+Match values that contain a certain pattern anywhere in the string
+Example: find documents where name contains "esh"
+→ db.collection.find({ name: /esh/ })
+
+Match values with a case-insensitive pattern
+Example: find documents where name matches "raju" regardless of case
+→ db.collection.find({ name: /raju/i })
+
+Match values that exactly match a specific word (case-sensitive)
+Example: find documents where name is exactly "Krishna"
+→ db.collection.find({ name: /^Krishna$/ })
+
+8. Nested Field Query
+----------------------
+
+Query fields inside embedded documents
+→ Example: "address.city" = "Delhi"
+
+9. Date Comparison
+----------------------
+
+Compare fields with specific date values using $gt, $lt, etc.
+
+10. Null Checks
+-----------------------
+
+field: null → Field is null or does not exist
+
+field: { $ne: null } → Field exists and is not null
