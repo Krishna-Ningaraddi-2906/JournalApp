@@ -1,7 +1,7 @@
-package com.springbootProjects.JournalApp.Services;
+package com.springbootProjects.JournalApp.Services.JournalEntityService;
 
-import com.springbootProjects.JournalApp.Entity.JournalEntity;
-import com.springbootProjects.JournalApp.Repository.JournalEntityRepository;
+import com.springbootProjects.JournalApp.Entity.JournalEntity.JournalEntity;
+import com.springbootProjects.JournalApp.Repository.JournalEntryRepository.JournalEntityRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

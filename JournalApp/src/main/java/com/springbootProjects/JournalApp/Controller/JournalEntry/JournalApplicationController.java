@@ -1,11 +1,10 @@
-package com.springbootProjects.JournalApp.Controller;
+package com.springbootProjects.JournalApp.Controller.JournalEntry;
 
-import com.springbootProjects.JournalApp.Entity.JournalEntity;
-import com.springbootProjects.JournalApp.Services.JournalEntityServices;
+import com.springbootProjects.JournalApp.Entity.JournalEntity.JournalEntity;
+import com.springbootProjects.JournalApp.Services.JournalEntityService.JournalEntityServices;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
