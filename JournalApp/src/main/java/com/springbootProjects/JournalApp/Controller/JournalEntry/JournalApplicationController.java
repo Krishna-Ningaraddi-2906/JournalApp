@@ -1,7 +1,11 @@
 package com.springbootProjects.JournalApp.Controller.JournalEntry;
 
 import com.springbootProjects.JournalApp.Entity.JournalEntity.JournalEntity;
+import com.springbootProjects.JournalApp.Entity.UserEntity.UserEntity;
 import com.springbootProjects.JournalApp.Services.JournalEntityService.JournalEntityServices;
+import com.springbootProjects.JournalApp.Services.UserService.UserServices;
+import org.apache.catalina.User;
+import org.apache.catalina.UserDatabase;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,26 +24,33 @@ public class JournalApplicationController
     @Autowired
     private JournalEntityServices services;
 
-    @GetMapping
-    public ResponseEntity<?> getEntries() // here ? means wild card which means we are not bound to send only
+    @Autowired
+    private UserServices UserServices;
+
+    @GetMapping("/{userName}")
+    public ResponseEntity<?> getAlEntriesOfUser(@PathVariable String userName) // here ? means wild card which means we are not bound to send only
     // JournalEntity type we send any Type later wrapping in ResponseEntity<>()
     {
 
-        List<JournalEntity> all=services.getAll();
+        // Here we are finding the user by taking the username from path Variable
+        UserEntity user= UserServices.findByName(userName);
+        System.out.println(user.getJournalEntries());
+        // For that specific user we are finding the journal Entries and storing in the list
+        List<JournalEntity> all= user.getJournalEntries(); // here i am calling the getter of userEntity
         if(all!=null && all.isEmpty())
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else
             return new ResponseEntity<>(all,HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<JournalEntity> journalEntry(@RequestBody JournalEntity entry)
+    @PostMapping("{userName}")
+    public ResponseEntity<JournalEntity> journalEntry(@RequestBody JournalEntity entry, @PathVariable String userName)
     {
 
         // Here we are sending the Post request in try if any issue occurs it throws the exception bu returning Bad request
         try {
             entry.setDate(LocalDateTime.now());
-            services.addEntry(entry);
+            services.addEntry(entry,userName); // here we are sending the userName to addEntry
             return new ResponseEntity<>(entry,HttpStatus.CREATED);
         }
         catch (Exception e)
@@ -66,15 +77,17 @@ public class JournalApplicationController
 
     }
 
-    @DeleteMapping("id/{id}")
-    public ResponseEntity<JournalEntity> delEntryById(@PathVariable ObjectId id)
+    @DeleteMapping("id/{userName}/{id}")
+    public ResponseEntity<JournalEntity> delEntryById(@PathVariable ObjectId id, @PathVariable String userName)
     {
-        services.deleteById(id);
+        //Here when we delete the entry based on id it will be deleted in the JournalEntity collection but its reference will not deleted in UserEntity
+        // We need to manually update it
+        services.deleteById(id,userName);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
     }
 
-    @PutMapping("id/{id}")
+    @PutMapping("id/{userName}/{id}")
     public ResponseEntity<JournalEntity> updateById(@PathVariable ObjectId id, @RequestBody JournalEntity newEntry)
     {
         JournalEntity oldEntry=services.getById(id).orElse(null);
@@ -82,7 +95,7 @@ public class JournalApplicationController
         {
             oldEntry.setTitle(newEntry.getTitle()!=null&& !newEntry.getTitle().equals("")? newEntry.getTitle() : oldEntry.getTitle());
             oldEntry.setContent(newEntry.getContent()!=null&& !newEntry.getContent().equals("")? newEntry.getContent() : oldEntry.getContent());
-            services.addEntry(oldEntry);
+            services.addEntry(oldEntry); // here we are calling the overloaded method of addEntry with only one parameter
             return new ResponseEntity<>(oldEntry,HttpStatus.OK);
         }
 
