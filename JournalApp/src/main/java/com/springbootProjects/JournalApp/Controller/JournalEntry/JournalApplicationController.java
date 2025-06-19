@@ -47,7 +47,7 @@ public class JournalApplicationController
     public ResponseEntity<JournalEntity> journalEntry(@RequestBody JournalEntity entry, @PathVariable String userName)
     {
 
-        // Here we are sending the Post request in try if any issue occurs it throws the exception bu returning Bad request
+        // Here we are sending the Post request in try if any issue occurs it throws the exception but returning Bad request
         try {
             entry.setDate(LocalDateTime.now());
             services.addEntry(entry,userName); // here we are sending the userName to addEntry
@@ -87,7 +87,7 @@ public class JournalApplicationController
 
     }
 
-    @PutMapping("id/{userName}/{id}")
+    @PutMapping("id/{userName}/ {id}")
     public ResponseEntity<JournalEntity> updateById(@PathVariable ObjectId id, @RequestBody JournalEntity newEntry)
     {
         JournalEntity oldEntry=services.getById(id).orElse(null);

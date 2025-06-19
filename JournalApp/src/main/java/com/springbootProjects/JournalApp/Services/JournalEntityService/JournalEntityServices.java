@@ -8,6 +8,7 @@ import org.apache.catalina.User;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,12 @@ public class JournalEntityServices
     @Autowired
     private UserServices UserServices;
 
+    // There is one issue here while adding the entry to the journalEntries it get added to that collection
+    // but if any issue occurs post that same will not be mapped to user but data will be present in journalEntries collection
+    // To over come that we go with Transaction which creates a transaction context and store all the operations
+    // If every thing goes good it commits else rolls back
+
+    @Transactional
     public void addEntry(JournalEntity JournalEntity, String userName)
     {
         UserEntity user= UserServices.findByName(userName); // here i am finding the user details as per the userName received
