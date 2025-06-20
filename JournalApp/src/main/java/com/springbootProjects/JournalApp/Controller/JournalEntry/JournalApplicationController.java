@@ -53,10 +53,16 @@ public class JournalApplicationController
             services.addEntry(entry,userName); // here we are sending the userName to addEntry
             return new ResponseEntity<>(entry,HttpStatus.CREATED);
         }
-        catch (Exception e)
-        {
+//        catch (Exception e)
+//        {
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+
+        catch (Exception e) {
+            e.printStackTrace(); // This tells us what’s failing
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
     }
 
 

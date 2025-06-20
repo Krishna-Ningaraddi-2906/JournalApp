@@ -29,7 +29,7 @@ public class UserServices
 
     public UserEntity findByName(String userName)
     {
-        return UserRepository.findByuserName(userName);
+        return UserRepository.findByUserName(userName);
     }
 
     public void deleteById(ObjectId id)

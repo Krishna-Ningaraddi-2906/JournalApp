@@ -57,7 +57,7 @@ public class JournalEntityServices
         UserEntity user= UserServices.findByName(userName);
         user.getJournalEntries().removeIf(x-> x.getId().equals(id)); // it matches the id from journalEntries i.e. from userEntity and id from JournalEntity
         // if matches it removes the that id in UserEntity
-        // if we dont use this line the previous deleted record will be removed one we create the new entry but maintain the consistency we are removing it manually
+        // if we dont use this line the previous deleted record will be removed once we create the new entry, but maintain the consistency we are removing it manually
         UserServices.addEntry(user);
         JournalEntityRepository.deleteById(id);
     }
