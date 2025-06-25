@@ -6,8 +6,11 @@ import com.springbootProjects.JournalApp.Repository.JournalEntryRepository.Journ
 import com.springbootProjects.JournalApp.Repository.UserRepository.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +20,16 @@ public class UserServices
     @Autowired
     private UserRepository UserRepository;
 
+    private  final PasswordEncoder passwordEncoder= new BCryptPasswordEncoder();
+
     public void addEntry(UserEntity UserEntity)
+    {
+        UserEntity.setPassword(passwordEncoder.encode(UserEntity.getPassword()));
+        UserEntity.setRole(Arrays.asList("USER"));
+        UserRepository.save(UserEntity);
+    }
+
+    public void addNewUser(UserEntity UserEntity)
     {
         UserRepository.save(UserEntity);
     }

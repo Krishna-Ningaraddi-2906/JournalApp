@@ -29,4 +29,5 @@ public class UserEntity
 
     @DBRef // this annotation helps to refer to the
     private List<JournalEntity> journalEntries=new ArrayList<>();
+    private List<String> role;
 }

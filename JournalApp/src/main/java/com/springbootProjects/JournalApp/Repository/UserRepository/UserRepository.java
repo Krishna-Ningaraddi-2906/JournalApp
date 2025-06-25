@@ -3,6 +3,7 @@ package com.springbootProjects.JournalApp.Repository.UserRepository;
 import com.springbootProjects.JournalApp.Entity.UserEntity.UserEntity;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.security.core.Authentication;
 
 public interface UserRepository extends MongoRepository<UserEntity, ObjectId>
 {
@@ -13,5 +14,7 @@ public interface UserRepository extends MongoRepository<UserEntity, ObjectId>
     // mention the type of the variable mentioned in entity class and the variable name
 
     UserEntity findByUserName(String userName);
+    UserEntity deleteByUserName(String userName);
+
 
 }
