@@ -1,19 +1,14 @@
 package com.springbootProjects.JournalApp.Controller.UserController;
 
-import com.springbootProjects.JournalApp.Entity.JournalEntity.JournalEntity;
 import com.springbootProjects.JournalApp.Entity.UserEntity.UserEntity;
 import com.springbootProjects.JournalApp.Repository.UserRepository.UserRepository;
 import com.springbootProjects.JournalApp.Services.UserService.UserServices;
-import org.apache.catalina.User;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -59,7 +54,7 @@ public class UserController
        UserEntity userInD = UserServices.findByName(userName);
        userInD.setUserName(entry.getUserName());
        userInD.setPassword(entry.getPassword());
-       UserServices.addEntry(userInD);
+       UserServices.addNewEntry(userInD);
        return new ResponseEntity<>(HttpStatus.ACCEPTED);
    }
 

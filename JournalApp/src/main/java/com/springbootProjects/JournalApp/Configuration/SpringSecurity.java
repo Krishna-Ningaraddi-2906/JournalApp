@@ -28,9 +28,9 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter
 
 
       // cross site request forgery
-      // by default it will enabled
+      // by default it will enable
       // as the api we built here are stateless os the CSRF is not required
-      // csrf is a cyber attack which tricks the system to submit a request which was not supposed to submit
+      // csrf is a cyberattack which tricks the system to submit a request which was not supposed to submit
 
       http.csrf().disable();
   }

@@ -20,7 +20,7 @@ public class PublicController
     @PostMapping("/createUser")
     public ResponseEntity<UserEntity> insertUser(@RequestBody UserEntity entry)
     {
-        UserServices.addEntry(entry);
+        UserServices.addNewEntry(entry);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

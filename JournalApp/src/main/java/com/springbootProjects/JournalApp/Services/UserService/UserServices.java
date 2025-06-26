@@ -1,8 +1,6 @@
 package com.springbootProjects.JournalApp.Services.UserService;
 
-import com.springbootProjects.JournalApp.Entity.JournalEntity.JournalEntity;
 import com.springbootProjects.JournalApp.Entity.UserEntity.UserEntity;
-import com.springbootProjects.JournalApp.Repository.JournalEntryRepository.JournalEntityRepository;
 import com.springbootProjects.JournalApp.Repository.UserRepository.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class UserServices
@@ -22,14 +19,16 @@ public class UserServices
 
     private  final PasswordEncoder passwordEncoder= new BCryptPasswordEncoder();
 
-    public void addEntry(UserEntity UserEntity)
+    public void addNewEntry(UserEntity UserEntity)
     {
         UserEntity.setPassword(passwordEncoder.encode(UserEntity.getPassword()));
         UserEntity.setRole(Arrays.asList("USER"));
         UserRepository.save(UserEntity);
     }
 
-    public void addNewUser(UserEntity UserEntity)
+    // Previously while adding the entry to journalEntries collection we used to use above method was encoding the encoded password
+    // so we where getting the unauthorised, so we created the new method
+    public void addUser(UserEntity UserEntity)
     {
         UserRepository.save(UserEntity);
     }
