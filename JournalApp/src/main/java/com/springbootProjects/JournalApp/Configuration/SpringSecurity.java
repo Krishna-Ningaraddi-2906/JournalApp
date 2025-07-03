@@ -21,11 +21,14 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter
 
     protected void configure(HttpSecurity http) throws Exception
   {
-      http.authorizeRequests().antMatchers("/Journal/**","/user/**").authenticated()
+
+      http.authorizeRequests()
+              .antMatchers("/Journal/**","/user/**").authenticated()
+              .antMatchers("/Journal/**","/admin/**").hasRole("ADMIN")  // previously it was not there
+              // we are giving the role to the admin
               .anyRequest().permitAll()
               .and()
               .httpBasic();
-
 
       // cross site request forgery
       // by default it will enable

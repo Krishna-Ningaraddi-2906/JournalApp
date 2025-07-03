@@ -22,8 +22,15 @@ public class UserServices
     public void addNewEntry(UserEntity UserEntity)
     {
         UserEntity.setPassword(passwordEncoder.encode(UserEntity.getPassword()));
-        UserEntity.setRole(Arrays.asList("USER"));
+        UserEntity.setRole(Arrays.asList("USER")); // here we are hard coding the role as user
         UserRepository.save(UserEntity);
+    }
+
+    public void addNewAdminUser(UserEntity userEntity)
+    {
+        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+        userEntity.setRole(Arrays.asList("USER","ADMIN")); // here we are hard coding the role as user
+        UserRepository.save(userEntity);
     }
 
     // Previously while adding the entry to journalEntries collection we used to use above method was encoding the encoded password
