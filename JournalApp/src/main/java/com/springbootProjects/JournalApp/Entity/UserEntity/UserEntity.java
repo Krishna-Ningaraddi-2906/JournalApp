@@ -1,6 +1,7 @@
 package com.springbootProjects.JournalApp.Entity.UserEntity;
 
 import com.springbootProjects.JournalApp.Entity.JournalEntity.JournalEntity;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -16,6 +17,7 @@ import java.util.List;
 @Document
 @Getter
 @Setter
+@Builder
 public class UserEntity
 {
     @Id

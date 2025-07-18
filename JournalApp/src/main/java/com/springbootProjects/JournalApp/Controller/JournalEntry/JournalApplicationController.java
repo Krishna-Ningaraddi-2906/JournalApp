@@ -35,7 +35,7 @@ public class JournalApplicationController
     // JournalEntity type we send any Type later wrapping in ResponseEntity<>()
     {
 
-        // Here we are doing authentication instead of talking userName from pathVariable
+        // Here we are doing authentication instead of taking userName from pathVariable
         Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
         String userName=authentication.getName();
         UserEntity user= UserServices.findByName(userName);
