@@ -22,7 +22,7 @@ public class UserEntity
 {
     @Id
     private ObjectId id;
-    // here we are indexing that username should be unique for this to work we need to add the line in application.properties
+    // here we are indexing that username should be unique for this to work we need to add the line in application.txt
     @Indexed(unique = true)
     @NonNull                // UserName can't be null
     private String userName;

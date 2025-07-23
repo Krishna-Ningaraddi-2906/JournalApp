@@ -1,0 +1,44 @@
+I have removed this file as i am using environment variables for dev and CLI for prod
+
+we need to use spring.profiles.active=dev in environment variables
+
+in production we run the jar file using "java -jar JournalApp-0.0.1-SNAPSHOT.jar"
+
+as we have written the tests to create the jar we need to use ".\mvn clean package -D spring.profiles.active=dev"
+
+Command	What it does
+"mvn clean package" -->	Builds app, runs tests using default profile
+"mvn clean package -D spring.profiles.active=dev" -->	Builds app, runs tests using dev profile
+"mvn clean package -D skipTests" -->	Builds app without running any tests
+
+"java -jar JournalApp-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod" --> we use this command to run the jar file
+with prod profile
+
+# yml file
+# Profiling Enabled
+# This is a default file
+
+spring:
+  profiles:
+    active: prod  # dev, prod what we use that will be the active profile
+
+application.properties type file
+
+# spring.application.name=JournalApp
+# spring.data.mongodb.uri= mongodb+srv://ningaraddi27krishna:AqCv%408587@cluster0.6sijp35.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+# Here Password AqCv@8587 is encoded as AqCv%408587 where  @ as %40 :as%3A / as 2F
+# spring.data.mongodb.auto-index-creation=true
+# spring.data.mongodb.database=JournalApp
+
+# here by default the index will not be created so we need to mention the below line so that springboot does the job
+
+
+# Below 2 lines are commented as we are now connecting our db to mongodb atlast i.e. cloud
+# spring.data.mongodb.host=localhost
+# spring.data.mongodb.port=27017
+# Here we haven't gave any authentication to the db so UN and PWD is not required if given below mentioned lines to be used
+# spring.data.mongodb.username=xyz
+# spring.data.mongodb.password=abc
+
+
+

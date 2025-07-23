@@ -1,0 +1,35 @@
+# yml file
+
+spring:
+  application:
+    name: JournalApp
+
+server:
+  port: 8081
+
+  data:
+    mongodb:
+      uri: mongodb+srv://ningaraddi27krishna:AqCv%408587@cluster0.6sijp35.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      auto-index-creation: true
+      database: JournalApp
+
+
+# application.properties type file
+# spring.application.name=JournalApp
+# spring.data.mongodb.uri= mongodb+srv://ningaraddi27krishna:AqCv%408587@cluster0.6sijp35.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+# Here Password AqCv@8587 is encoded as AqCv%408587 where  @ as %40 :as%3A / as 2F
+# spring.data.mongodb.auto-index-creation=true
+# spring.data.mongodb.database=JournalApp
+
+# here by default the index will not be created so we need to mention the below line so that springboot does the job
+
+
+# Below 2 lines are commented as we are now connecting our db to mongodb atlast i.e. cloud
+# spring.data.mongodb.host=localhost
+# spring.data.mongodb.port=27017
+# Here we haven't gave any authentication to the db so UN and PWD is not required if given below mentioned lines to be used
+# spring.data.mongodb.username=xyz
+# spring.data.mongodb.password=abc
+
+
+

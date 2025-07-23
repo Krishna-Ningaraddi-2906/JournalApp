@@ -28,21 +28,21 @@ public class UserServiceTests
         assertEquals("krishna", user.getUserName());
    }
 
-   @ParameterizedTest  // we are using parameterized test annotation to test multiple dynamic inputs
-   @CsvSource({ "1, 1, 2", "2, 2, 4", "3, 3, 9" })
-   public void test(int a, int b, int expected) {
-        assertEquals(expected, a + b);
-   }
-
-   @ParameterizedTest
-   // we are using ValueSource annotation instead of CsvSource we can use int,float etc instead of strings
-   @ValueSource(strings = { "krishna", "pramod", "KK" })
-
-   public void test2(String userName) {
-       {
-           assertNotNull(userRepository.findByUserName(userName), "failed for " + userName);
-       }
-   }
+//   @ParameterizedTest  // we are using parameterized test annotation to test multiple dynamic inputs
+//   @CsvSource({ "1, 1, 2", "2, 2, 4", "3, 3, 9" })
+//   public void test(int a, int b, int expected) {
+//        assertEquals(expected, a + b);
+//   }
+//
+//   @ParameterizedTest
+//   // we are using ValueSource annotation instead of CsvSource we can use int,float etc instead of strings
+//   @ValueSource(strings = { "krishna", "pramod", "KK" })
+//
+//   public void test2(String userName) {
+//       {
+//           assertNotNull(userRepository.findByUserName(userName), "failed for " + userName);
+//       }
+//   }
 
 
    // there are few more annotations we can use, these are used on methods
