@@ -1,5 +1,7 @@
 # yml file
 
+# Corrected yml file
+
 spring:
   application:
     name: JournalApp
@@ -10,7 +12,8 @@ spring:
       database: JournalApp
 
 server:
-  port: 8080
+  port: 8081
+
 
 # application.properties type file
 # spring.application.name=JournalApp

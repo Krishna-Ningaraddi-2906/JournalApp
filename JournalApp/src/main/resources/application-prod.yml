@@ -1,17 +1,16 @@
-# yml file
+# prod yml file
 
 spring:
   application:
     name: JournalApp
-
-server:
-  port: 8081
-
   data:
     mongodb:
       uri: mongodb+srv://ningaraddi27krishna:AqCv%408587@cluster0.6sijp35.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
       auto-index-creation: true
       database: JournalApp
+
+server:
+  port: 8080
 
 
 # application.properties type file
