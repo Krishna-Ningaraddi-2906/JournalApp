@@ -7,12 +7,20 @@ spring:
     name: JournalApp
   data:
     mongodb:
-      uri: mongodb+srv://ningaraddi27krishna:AqCv%408587@cluster0.6sijp35.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      uri: mongodb+srv://ningaraddi27krishna:AqCv%408587@cluster0.6sijp35.mongodb.net/JournalApp?retryWrites=true&w=majority
       auto-index-creation: true
       database: JournalApp
 
 server:
   port: 8081
+
+
+# we are using logback.xml
+#logging:
+#  level:
+#    com:
+#      springbootProjects:
+#        JournalApp: DEBUG
 
 
 # application.properties type file

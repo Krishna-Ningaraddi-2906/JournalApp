@@ -1,0 +1,40 @@
+<configuration>
+
+    <appender name="myConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+<!--      this mandatory element specifies the log message layout-->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+<!--     this appender writes log to a file-->
+    <appender name="myFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>
+            JournalApp.log
+        </file>
+<!--        Here we have changed the FileAppender to RollingFileAppender as it will create new log file as per
+ given policy-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--With this policy we can create new log file every day-->
+            <filenamePattern>JournalApp-%d{yyyy-MM-dd}.log</filenamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <maxHistory>5</maxHistory>
+        </rollingPolicy>
+
+        <append>true</append>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <!-- HH:mm:ss.SSS - Time format in log
+                 -5 5spaces before log level or left side
+                  {36} upto 36 characters
+                  %msg log message
+                  %n new line-->
+        </encoder>
+
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="myConsoleAppender"/>
+        <appender-ref ref="myFileAppender"/>
+    </root>
+</configuration>

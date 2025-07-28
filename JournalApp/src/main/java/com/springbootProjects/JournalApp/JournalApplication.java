@@ -23,6 +23,13 @@ public class JournalApplication {
 	@Bean
 	public PlatformTransactionManager add(MongoDatabaseFactory dbFactory)
 	{
-		return new MongoTransactionManager(dbFactory);
+		try{
+			return new MongoTransactionManager(dbFactory);
+		}
+		catch (Exception e)
+		{
+			System.out.println("Application failed"+e.getMessage());
+			return null;
+		}
 	}
 }

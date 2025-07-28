@@ -5,6 +5,8 @@ import com.springbootProjects.JournalApp.Entity.UserEntity.UserEntity;
 import com.springbootProjects.JournalApp.Repository.JournalEntryRepository.JournalEntityRepository;
 import com.springbootProjects.JournalApp.Services.UserService.UserServices;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +27,8 @@ public class JournalEntityServices
     // but if any issue occurs post that same will not be mapped to user but data will be present in journalEntries collection
     // To over come that we go with Transaction which creates a transaction context and store all the operations
     // If every thing goes good it commits else rolls back
+
+
 
     @Transactional
     public void addEntry(JournalEntity JournalEntity, String userName)

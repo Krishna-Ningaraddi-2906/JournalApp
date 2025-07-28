@@ -2,6 +2,7 @@ package com.springbootProjects.JournalApp.Services.UserService;
 
 import com.springbootProjects.JournalApp.Entity.UserEntity.UserEntity;
 import com.springbootProjects.JournalApp.Repository.UserRepository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
+@Slf4j
 public class UserServices
 {
     @Autowired
@@ -19,11 +21,24 @@ public class UserServices
 
     private  final PasswordEncoder passwordEncoder= new BCryptPasswordEncoder();
 
-    public void addNewEntry(UserEntity UserEntity)
+    // Instead of using logger we are using slf4j
+    //  private static final Logger logger= LoggerFactory.getLogger(UserServices.class);
+
+    public boolean addNewEntry(UserEntity UserEntity)
     {
-        UserEntity.setPassword(passwordEncoder.encode(UserEntity.getPassword()));
-        UserEntity.setRole(Arrays.asList("USER")); // here we are hard coding the role as user
-        UserRepository.save(UserEntity);
+        try {
+            UserEntity.setPassword(passwordEncoder.encode(UserEntity.getPassword()));
+            UserEntity.setRole(Arrays.asList("USER")); // here we are hard coding the role as user
+            UserRepository.save(UserEntity);
+            return true;
+        }
+        catch(Exception e)
+        {
+            // here for slf4j we use log instead of logger
+            log.error("An error occurred while adding the user {}",UserEntity.getUserName(),e);
+            return false;
+        }
+
     }
 
     public void addNewAdminUser(UserEntity userEntity)

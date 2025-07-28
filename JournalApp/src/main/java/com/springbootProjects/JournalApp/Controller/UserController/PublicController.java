@@ -18,10 +18,13 @@ public class PublicController
     private UserServices UserServices;
 
     @PostMapping("/createUser")
-    public ResponseEntity<UserEntity> insertUser(@RequestBody UserEntity entry)
+    public ResponseEntity<?> insertUser(@RequestBody UserEntity entry)
     {
-        UserServices.addNewEntry(entry);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        boolean result=UserServices.addNewEntry(entry);
+        if(result)
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        else
+            return new ResponseEntity<>("Duplicate Entry",HttpStatus.BAD_REQUEST);
     }
 
 }
