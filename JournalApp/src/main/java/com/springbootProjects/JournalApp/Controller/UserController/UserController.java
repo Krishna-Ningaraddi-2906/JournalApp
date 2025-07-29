@@ -1,8 +1,10 @@
 package com.springbootProjects.JournalApp.Controller.UserController;
 
+import com.springbootProjects.JournalApp.ApiResponse.WeatherResponse;
 import com.springbootProjects.JournalApp.Entity.UserEntity.UserEntity;
 import com.springbootProjects.JournalApp.Repository.UserRepository.UserRepository;
 import com.springbootProjects.JournalApp.Services.UserService.UserServices;
+import com.springbootProjects.JournalApp.Services.WeatherService.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,9 @@ public class UserController
     private UserServices UserServices;
     @Autowired
     private UserRepository UserRepository;
+
+    @Autowired
+    private WeatherService weatherService;
 
 
     // AS of now i have removed the All users and we'll add this feature in admin
@@ -65,6 +70,21 @@ public class UserController
         UserRepository.deleteByUserName(authentication.getName());
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+    }
+
+    @GetMapping("/greet")
+    public ResponseEntity<?> greetings()
+    {
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        WeatherResponse weatherResponse = weatherService.getWeather("Delhi");
+
+        String greeting="";
+        if(weatherResponse!=null)
+        {
+            greeting="Current temperature in Delhi is "+weatherResponse.getCurrent().getTempC();
+        }
+        return new ResponseEntity<>("Hello "+authentication.getName() +" "+greeting+"C",HttpStatus.OK);
 
     }
 
